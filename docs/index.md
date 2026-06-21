@@ -7,14 +7,14 @@ hero:
   tagline: A fully agentic Linux stack built from the ground up — secure, local-first, and explicit about the boundary between host, user, and agent execution.
   actions:
     - theme: brand
+      text: Download SourceOS
+      link: /download
+    - theme: alt
       text: Read the architecture
       link: /architecture
     - theme: alt
       text: See SourceOS
       link: /sourceos
-    - theme: alt
-      text: Understand the target surfaces
-      link: /commons
 
 features:
   - title: Immutable host core

@@ -13,6 +13,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/mark.svg',
     nav: [
+      { text: 'Download', link: '/download' },
       { text: 'Architecture', link: '/architecture' },
       { text: 'SourceOS', link: '/sourceos' },
       { text: 'Agent Plane', link: '/agent-plane' },
@@ -26,6 +27,7 @@ export default defineConfig({
         text: 'Start Here',
         items: [
           { text: 'Home', link: '/' },
+          { text: 'Download', link: '/download' },
           { text: 'Architecture', link: '/architecture' },
           { text: 'SourceOS', link: '/sourceos' },
           { text: 'Agent Plane', link: '/agent-plane' }
