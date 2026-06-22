@@ -13,8 +13,10 @@ export default defineConfig({
   themeConfig: {
     logo: '/mark.svg',
     nav: [
+      { text: 'Download', link: '/download' },
       { text: 'Architecture', link: '/architecture' },
       { text: 'SourceOS', link: '/sourceos' },
+      { text: 'Ecosystem', link: '/ecosystem' },
       { text: 'Agent Plane', link: '/agent-plane' },
       { text: 'Commons', link: '/commons' },
       { text: 'Organizations', link: '/organizations' },
@@ -26,8 +28,10 @@ export default defineConfig({
         text: 'Start Here',
         items: [
           { text: 'Home', link: '/' },
+          { text: 'Download', link: '/download' },
           { text: 'Architecture', link: '/architecture' },
           { text: 'SourceOS', link: '/sourceos' },
+          { text: 'Ecosystem', link: '/ecosystem' },
           { text: 'Agent Plane', link: '/agent-plane' }
         ]
       },
