@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "dev": "socioprophet-web-dev-env",
+    "prod": "socioprophet-web"
+  },
+  "targets": {
+    "socioprophet-web": {
+      "hosting": { "socios-linux": ["socios-linux"] }
+    },
+    "socioprophet-web-dev-env": {
+      "hosting": { "socios-linux": ["socios-linux-dev"] }
+    }
+  },
+  "etags": {}
+}

@@ -7,7 +7,9 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "verify": "npm run docs:build"
+    "verify": "npm run docs:build",
+    "deploy": "bash scripts/deploy.sh prod",
+    "deploy:dev": "bash scripts/deploy.sh dev"
   },
   "devDependencies": {
     "vitepress": "^1.6.4"

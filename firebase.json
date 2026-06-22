@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "socios-linux",
     "public": "docs/.vitepress/dist",
     "ignore": [
       "firebase.json",
