@@ -7,7 +7,7 @@ builder app, and the customization/lifecycle backend. DNS is entered at Namechea
 
 | Surface | Repo / path | Host | Domain (proposed) | Status |
 |---|---|---|---|---|
-| **Socios Linux site** (download + ecosystem) | `socios-linux/socioslinux-web` → `docs/.vitepress/dist` | GitHub Pages *(or Firebase)* | **sourceos.org**, www | builds ✅ — needs Pages enabled + DNS |
+| **Socios Linux site** (download + ecosystem) | `socios-linux/socioslinux-web` → `docs/.vitepress/dist` | Firebase Hosting (site `socios-linux`) | **sourceos.org**, www | builds ✅ — needs site created + custom domain + DNS |
 | **Image builder app** | `socioprophet/socioprophet` → `socioprophet-web/app-vue/dist` | Firebase Hosting target `app` (site `socioprophet-builder`) | **app.sourceos.org** | builds ✅ — needs site created + `firebase-config.js` + DNS |
 | **Builder API** (customization/lifecycle) | `socioprophet-web/server` (Express) | Cloud Run `builder-api` (us-central1) | (behind `/api` on the app) | code ✅ — needs deploy + `SOURCEOS_GH_TOKEN` + SA IAM |
 | **Asahi installer** | `scripts/get-sourceos.sh` | static text host | **get.sourceos.org** | script ✅ — needs a 1-file host (or redirect to raw) |
@@ -15,21 +15,20 @@ builder app, and the customization/lifecycle backend. DNS is entered at Namechea
 
 ## DNS records to enter at Namecheap
 
-### sourceos.org → the public site (GitHub Pages — fastest, stable IPs)
-Apex `@` — four A records (GitHub Pages):
-```
-A   @   185.199.108.153
-A   @   185.199.109.153
-A   @   185.199.110.153
-A   @   185.199.111.153
-```
-`www` — CNAME to the Pages host:
-```
-CNAME  www   socios-linux.github.io.
-```
-Then in the repo: Settings → Pages → Source = GitHub Actions (the `pages.yml`
-workflow deploys `docs/.vitepress/dist`), and set the custom domain to
-`sourceos.org` (writes a CNAME file). HTTPS is automatic.
+### sourceos.org → the public site (Firebase Hosting)
+This repo deploys to the Firebase Hosting site `socios-linux` (under the
+`socioprophet-web` project — adjust in `.firebaserc` if it should be its own
+project). Custom-domain DNS comes from the Firebase console:
+
+1. `firebase hosting:sites:create socios-linux --project prod` (once).
+2. `npm run deploy` (= `firebase deploy --project prod --only hosting:socios-linux`).
+3. Firebase console → Hosting → site `socios-linux` → **Add custom domain
+   `sourceos.org`** (and `www.sourceos.org`). Firebase shows the exact records:
+   - typically an **A** record (Firebase serving IP, shown per-domain) for `@`,
+   - and a **TXT** record for ownership verification.
+   Paste those exact values into Namecheap. HTTPS is auto-provisioned.
+
+> Do NOT use GitHub Pages A-records (185.199.x) — this is Firebase, not Pages.
 
 ### app.sourceos.org → the builder (Firebase Hosting)
 Firebase console → Hosting → site `socioprophet-builder` → **Add custom domain
@@ -45,9 +44,11 @@ the installer already falls back to the raw GitHub URL.
 
 ## Deploy steps
 
-### 1. Public site (Pages)
-- Repo Settings → Pages → Source: GitHub Actions; custom domain `sourceos.org`.
-- Push to `main` → `pages.yml` builds + deploys. Enter the A/CNAME records above.
+### 1. Public site (Firebase)
+- `firebase hosting:sites:create socios-linux --project prod` (once).
+- `npm run deploy` (build + `firebase deploy --only hosting:socios-linux`).
+- Add the custom domain `sourceos.org` in the Firebase console; enter the A/TXT
+  records it shows into Namecheap.
 
 ### 2. Builder app (Firebase)
 - `cd socioprophet-web/app-vue && cp public/firebase-config.js …` → fill the
@@ -65,7 +66,7 @@ the installer already falls back to the raw GitHub URL.
   `signBlob` (nlboot signed URLs).
 
 ## Pre-push checklist
-- [ ] `socioslinux-web`: `npm run docs:build` green (✅), Pages enabled, DNS entered
+- [ ] `socioslinux-web`: `npm run docs:build` green (✅), Firebase site `socios-linux` created, `npm run deploy`, custom domain + DNS entered
 - [ ] `app-vue`: `npm run build` green (✅), `firebase-config.js` filled, site created, DNS
 - [ ] backend: Cloud Run deployed, `SOURCEOS_GH_TOKEN` + SA IAM set
 - [ ] `release-images.yml` has produced a public ISO (cut `v26.11`) so the download links resolve
