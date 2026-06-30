@@ -49,6 +49,17 @@ export default defineConfig({
           { text: 'Connected Stack', link: '/connected-stack' },
           { text: 'FAQ', link: '/faq' }
         ]
+      },
+      {
+        text: 'Project (IA & Backlog)',
+        collapsed: true,
+        items: [
+          { text: 'Site Map', link: '/ia/site-map-v0.1' },
+          { text: 'Messaging', link: '/ia/messaging-v0.1' },
+          { text: 'Routing & Domains', link: '/ia/routing-v0.1' },
+          { text: 'Decisions', link: '/backlog/decisions' },
+          { text: 'Open Questions', link: '/backlog/open-questions' }
+        ]
       }
     ],
     socialLinks: [

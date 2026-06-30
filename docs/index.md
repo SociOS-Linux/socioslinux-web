@@ -17,12 +17,12 @@ hero:
       link: /sourceos
 
 features:
-  - title: Immutable host core
-    details: The host layer is meant to be durable, updateable, and constrained. It is not the place where ambient tool sprawl takes over the system.
-  - title: Customizable user space
-    details: The user environment remains flexible and expressive without weakening the trust boundary of the underlying core.
-  - title: Separate agent plane
-    details: Agent execution is not just another user process. It is a first-class plane with its own policies, routing, and control boundaries.
+  - title: "Host plane — immutable core"
+    details: An immutable, OSTree-based core with atomic update and rollback. Durable, updateable, and constrained — not where ambient tool sprawl takes over the system.
+  - title: "User plane — customizable workspace"
+    details: A flexible, expressive user environment with local-first files and owner control — without weakening the trust boundary of the underlying core.
+  - title: "Agent plane — isolated execution"
+    details: Agent execution is not just another user process. It is a first-class, capability-bounded, policy-governed plane — not ambient desktop privilege.
   - title: Local-first by design
     details: Core operation should remain useful and trustworthy even when network presence is degraded, absent, or selectively disabled.
   - title: Multi-target surfaces
